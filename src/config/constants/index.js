@@ -5,3 +5,6 @@ module.exports.SL_LOGIN_URL = "https://login.salesforce.com";
 module.exports.SF_TOKEN = "JAhorxWy5ajdSULgUZJUTpvxd";
 module.exports.SF_USERNAME = "tiemenihapi@hapidev.com";
 module.exports.SF_PASSWORD = "Masochisme18";
+module.exports.PROCESS_PAYMENT = '/payment';
+module.exports.PROCESS_REGISTRATION = "/register";
+module.exports.PROCESS_SIGNUP = "/sign-in";
