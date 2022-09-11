@@ -1,10 +1,11 @@
+const { SL_LOGIN_URL, SF_TOKEN, SF_USERNAME, SF_PASSWORD } = require("./constants");
 
 class EstablishConnexion {
 
-    SL_LOGIN_URL = "https://login.salesforce.com"
-    SF_TOKEN = "JAhorxWy5ajdSULgUZJUTpvxd";
-    SF_USERNAME = "tiemenihapi@hapidev.com";
-    SF_PASSWORD = "Masochisme18";
+    SL_LOGIN_URL = SL_LOGIN_URL
+    SF_TOKEN = SF_TOKEN
+    SF_USERNAME = SF_USERNAME
+    SF_PASSWORD = SF_PASSWORD
 
     setConnexion = (conn) => {
         return new Promise((resolve, reject) => {
