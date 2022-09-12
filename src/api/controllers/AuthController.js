@@ -27,7 +27,7 @@ module.exports.signin = (req, res, next, conn) => {
 }
 
 module.exports.signup = (req, res, next, conn) => {
-    const { Name, Email__c, Status__c, Password__c } = { Name: "yomani hapi", Email__c: "yomanirocket@gmail.com", Password__c: "shsjdjsdjsdjsdj541545" };
+    const { Name, Email__c, Status__c, Password__c } = { Name: "leugoue hapi", Email__c: "leugouemichelle@gmail.com", Password__c: "shsjdjsdjsdjsdj541545" };
 
     conn.sobject("Compte__c")
         .find({ Email__c: Email__c })
@@ -38,8 +38,7 @@ module.exports.signup = (req, res, next, conn) => {
                     res.status(400).json({ success: false });
                     next();
                 } else {
-                    console.log("here", result);
-                    if (!!result[0].Password__c) {
+                    if (Array.from(result).length > 0) {
                         const id = result[0].Id;
                         const token = jwt.sign({ id }, SECRET_KEY, {
                             expiresIn: ONE_DAY,
@@ -52,7 +51,6 @@ module.exports.signup = (req, res, next, conn) => {
                             if (err || !ret.success) {
                                 res.cookie(JWT_KEY, EMPTY_STRING, { maxAge: NULL_DURATION });
                                 res.status(400).json({ success: false });
-                                next()
                             } else {
                                 const id = ret.id;
                                 const token = jwt.sign({ id }, SECRET_KEY, {
@@ -60,11 +58,9 @@ module.exports.signup = (req, res, next, conn) => {
                                 });
                                 res.cookie(JWT_KEY, token, { maxAge: ONE_DAY });
                                 res.status(200).json({ success: ret.success, data: ret.id });
-                                next();
                             }
                         });
                     }
-                    next()
                 }
             }
         )

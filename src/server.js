@@ -44,7 +44,6 @@ server.listen(process.env.PORT || ELSLY_PORT, () => {
   const establishConnexion = new EstablishConnexion();
   establishConnexion.setConnexion(conn)
     .then(info => {
-      console.log(info);
       console.log('salesforce connected !');
     })
     .catch(err => {
