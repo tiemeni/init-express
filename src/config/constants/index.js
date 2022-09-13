@@ -13,3 +13,5 @@ module.exports.ONE_DAY = 1 * 24 * 60 * 60 * 1000;
 module.exports.JWT_KEY = "jwt";
 module.exports.EMPTY_STRING = "";
 module.exports.NULL_DURATION = 0
+module.exports.COMPTE = "Compte__c";
+module.exports.ALREADY_AN_ACCOUNT_MESSAGE = "vous avez deja un compte";

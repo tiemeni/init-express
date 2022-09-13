@@ -1,7 +1,17 @@
-const { SECRET_KEY, ONE_DAY, JWT_KEY, NULL_DURATION, EMPTY_STRING } = require("../../config/constants");
+const {
+    SECRET_KEY,
+    ONE_DAY,
+    JWT_KEY,
+    NULL_DURATION,
+    EMPTY_STRING,
+    COMPTE,
+    ALREADY_AN_ACCOUNT_MESSAGE
+} = require("../../config/constants");
+
 const jwt = require('jsonwebtoken');
 
 module.exports.signin = (req, res, next, conn) => {
+
     const { Name, Email__c, Status__c, Password__c } = { Name: "tiemeni hapi", Email__c: "tiemanirocket@gmail.com", Password__c: "hsjdjsdjsdjsdj541545" };
     conn.search("FIND {" + Name + "*} IN ALL FIELDS RETURNING Compte__c(Id, Name, Password__c)",
         function (err, result) {
@@ -27,9 +37,9 @@ module.exports.signin = (req, res, next, conn) => {
 }
 
 module.exports.signup = (req, res, next, conn) => {
-    const { Name, Email__c, Status__c, Password__c } = { Name: "leugoue hapi", Email__c: "leugouemichelle@gmail.com", Password__c: "shsjdjsdjsdjsdj541545" };
 
-    conn.sobject("Compte__c")
+    const { Name, Email__c, Status__c, Password__c } = { Name: "leugoue hapi", Email__c: "leugouemichelle@gmail.com", Password__c: "shsjdjsdjsdjsdj541545" };
+    conn.sobject(COMPTE)
         .find({ Email__c: Email__c })
         .execute(
             (err, result) => {
@@ -44,10 +54,10 @@ module.exports.signup = (req, res, next, conn) => {
                             expiresIn: ONE_DAY,
                         });
                         res.cookie(JWT_KEY, token, { maxAge: ONE_DAY });
-                        res.status(201).json({ success: false, data: "vous avez deja un compte" });
+                        res.status(201).json({ success: false, data: ALREADY_AN_ACCOUNT_MESSAGE });
                         next();
                     } else {
-                        conn.sobject("Compte__c").create({ Name, Email__c, Status__c, Password__c }, function (err, ret) {
+                        conn.sobject(COMPTE).create({ Name, Email__c, Status__c, Password__c }, function (err, ret) {
                             if (err || !ret.success) {
                                 res.cookie(JWT_KEY, EMPTY_STRING, { maxAge: NULL_DURATION });
                                 res.status(400).json({ success: false });
